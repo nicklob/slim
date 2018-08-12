@@ -8,6 +8,7 @@
         "slim/slim": "^3.0",
         "guzzlehttp/guzzle": "^6.3",
         "fzaninotto/faker": "^1.8",
-        "slim/php-view": "^2.2"
+        "slim/php-view": "^2.2",
+        "danielstjules/stringy": "^3.1"
     }
 }

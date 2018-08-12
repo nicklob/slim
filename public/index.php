@@ -37,7 +37,12 @@ $container['renderer'] = new \Slim\Views\PhpRenderer(__DIR__ . '/../templates');
 $app->get('/users', function ($request, $response) use ($users) {
     $per = $request->getQueryParam('per', 5);
     $page = $request->getQueryParam('page', 1);
-    $result = (array_slice($users, ($page - 1) * $per, $per));
+    $term = $request->getQueryParam('term', '');
+    $filtered_users = array_filter ($users, function ($user) use ($term) {
+    	return \Stringy\create($user['firstName'])->startsWith($term, false);
+    });
+    //var_dump($filtered_users);
+    $result = (array_slice($filtered_users, ($page - 1) * $per, $per));
     $params = ['users' => $result, 'per' => $per, 'page' => $page];
     //$response->write(json_encode($result));
     return $this->renderer->render($response, 'users/index.phtml', $params);
